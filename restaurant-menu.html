@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savory Haven - Digital Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E63946',
+                        secondary: '#F4A261',
+                        dark: '#1A1A1A',
+                        light: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        body: ['Lora', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            font-family: 'Lora', serif;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(230, 57, 70, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(244, 162, 97, 0.1) 0%, transparent 50%);
+        }
+
+        .dark .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(230, 57, 70, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(244, 162, 97, 0.15) 0%, transparent 50%);
+        }
+
+        .menu-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .category-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #E63946, #F4A261);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .category-link:hover::before {
+            transform: translateX(0);
+        }
+
+        .page-enter {
+            animation: pageEnter 0.4s ease-out;
+        }
+
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+
+        .fixed-buttons {
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .fixed-buttons {
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="fixed top-4 right-4 z-50 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
+        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
+        <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-gray-700"></i>
+    </button>
+
+    <!-- Main Container -->
+    <div id="app" class="min-h-screen pb-32">
+        <!-- Home Page -->
+        <div id="homePage" class="page-content">
+            <!-- Hero Section -->
+            <section class="hero-pattern min-h-[60vh] flex items-center justify-center px-4 py-16">
+                <div class="text-center page-enter">
+                    <h1 class="text-5xl md:text-7xl font-bold text-primary mb-4">Savory Haven</h1>
+                    <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-light italic">Where Every Bite Tells a Story</p>
+                    <div class="mt-8 flex gap-2 justify-center">
+                        <div class="w-16 h-1 bg-primary rounded"></div>
+                        <div class="w-16 h-1 bg-secondary rounded"></div>
+                        <div class="w-16 h-1 bg-primary rounded"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="max-w-6xl mx-auto px-4 py-16">
+                <h2 class="text-4xl font-bold text-center mb-12">Our Menu</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Breakfast -->
+                    <a href="#" data-page="breakfast" class="category-link block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 page-enter stagger-1">
+                        <div class="h-48 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+                            <i data-lucide="sunrise" class="w-20 h-20 text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-2">Breakfast</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Start your day right</p>
+                        </div>
+                    </a>
+
+                    <!-- Lunch -->
+                    <a href="#" data-page="lunch" class="category-link block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 page-enter stagger-2">
+                        <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                            <i data-lucide="salad" class="w-20 h-20 text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-2">Lunch</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Midday delights</p>
+                        </div>
+                    </a>
+
+                    <!-- Dinner -->
+                    <a href="#" data-page="dinner" class="category-link block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 page-enter stagger-3">
+                        <div class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                            <i data-lucide="utensils" class="w-20 h-20 text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-2">Dinner</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Evening favorites</p>
+                        </div>
+                    </a>
+
+                    <!-- Drinks -->
+                    <a href="#" data-page="drinks" class="category-link block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 page-enter stagger-4">
+                        <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                            <i data-lucide="coffee" class="w-20 h-20 text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-2">Drinks</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Refreshing beverages</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="bg-white dark:bg-gray-800 py-12 px-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                            <i data-lucide="phone" class="w-5 h-5 text-primary"></i>
+                            Contact Us
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-2">Phone: +1 (555) 123-4567</p>
+                        <p class="text-gray-600 dark:text-gray-400 mb-2">Email: hello@savoryhaven.com</p>
+                        <p class="text-gray-600 dark:text-gray-400">Hours: Mon-Sun, 8:00 AM - 10:00 PM</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-primary"></i>
+                            Location
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">123 Culinary Street<br>Food District, FC 12345</p>
+                        <a href="https://maps.google.com" target="_blank" class="inline-flex items-center gap-2 text-primary hover:text-secondary transition-colors">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            View on Google Maps
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                    <p class="text-gray-500 dark:text-gray-400">© 2024 Savory Haven. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Breakfast Page -->
+        <div id="breakfastPage" class="page-content hidden">
+            <div class="max-w-6xl mx-auto px-4 py-8">
+                <button class="back-btn flex items-center gap-2 text-primary hover:text-secondary transition-colors mb-6">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    Back to Menu
+                </button>
+                
+                <div class="text-center mb-12">
+                    <h2 class="text-5xl font-bold text-primary mb-4">Breakfast</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 italic">Rise and shine with our morning favorites</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Menu Item 1 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-yellow-200 to-orange-300 flex items-center justify-center">
+                            <i data-lucide="egg" class="w-16 h-16 text-orange-600"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Classic Pancakes</h3>
+                                <span class="text-primary font-bold text-lg">$8.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Fluffy buttermilk pancakes served with maple syrup and fresh berries</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 2 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-green-200 to-green-400 flex items-center justify-center">
+                            <i data-lucide="salad" class="w-16 h-16 text-green-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Avocado Toast</h3>
+                                <span class="text-primary font-bold text-lg">$10.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Smashed avocado on sourdough with poached eggs and cherry tomatoes</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 3 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-red-200 to-red-400 flex items-center justify-center">
+                            <i data-lucide="flame" class="w-16 h-16 text-red-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Breakfast Burrito</h3>
+                                <span class="text-primary font-bold text-lg">$12.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Scrambled eggs, bacon, cheese, and salsa wrapped in a warm tortilla</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 4 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-purple-200 to-purple-400 flex items-center justify-center">
+                            <i data-lucide="cherry" class="w-16 h-16 text-purple-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Berry Smoothie Bowl</h3>
+                                <span class="text-primary font-bold text-lg">$9.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Acai blend topped with granola, fresh fruits, and honey drizzle</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 5 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-amber-200 to-amber-400 flex items-center justify-center">
+                            <i data-lucide="croissant" class="w-16 h-16 text-amber-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">French Toast</h3>
+                                <span class="text-primary font-bold text-lg">$9.49</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Thick-cut brioche dipped in cinnamon custard, topped with powdered sugar</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 6 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-orange-200 to-orange-400 flex items-center justify-center">
+                            <i data-lucide="beef" class="w-16 h-16 text-orange-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Full English Breakfast</h3>
+                                <span class="text-primary font-bold text-lg">$14.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Eggs, bacon, sausage, baked beans, mushrooms, and toast</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lunch Page -->
+        <div id="lunchPage" class="page-content hidden">
+            <div class="max-w-6xl mx-auto px-4 py-8">
+                <button class="back-btn flex items-center gap-2 text-primary hover:text-secondary transition-colors mb-6">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    Back to Menu
+                </button>
+                
+                <div class="text-center mb-12">
+                    <h2 class="text-5xl font-bold text-primary mb-4">Lunch</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 italic">Satisfy your midday cravings</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Menu Item 1 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-yellow-200 to-yellow-400 flex items-center justify-center">
+                            <i data-lucide="sandwich" class="w-16 h-16 text-yellow-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Club Sandwich</h3>
+                                <span class="text-primary font-bold text-lg">$11.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Triple-decker with turkey, bacon, lettuce, tomato, and mayo</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 2 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-green-200 to-green-400 flex items-center justify-center">
+                            <i data-lucide="leaf" class="w-16 h-16 text-green-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Caesar Salad</h3>
+                                <span class="text-primary font-bold text-lg">$10.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Crisp romaine, parmesan, croutons, and house-made Caesar dressing</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 3 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-red-200 to-red-400 flex items-center justify-center">
+                            <i data-lucide="pizza" class="w-16 h-16 text-red-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Margherita Pizza</h3>
+                                <span class="text-primary font-bold text-lg">$13.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Fresh mozzarella, basil, and tomato sauce on thin crust</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 4 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-blue-200 to-blue-400 flex items-center justify-center">
+                            <i data-lucide="fish" class="w-16 h-16 text-blue-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Grilled Salmon</h3>
+                                <span class="text-primary font-bold text-lg">$16.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Atlantic salmon with lemon butter, served with seasonal vegetables</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 5 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-orange-200 to-orange-400 flex items-center justify-center">
+                            <i data-lucide="soup" class="w-16 h-16 text-orange-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Tomato Soup</h3>
+                                <span class="text-primary font-bold text-lg">$7.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Creamy tomato soup with fresh basil and grilled cheese croutons</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 6 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-amber-200 to-amber-400 flex items-center justify-center">
+                            <i data-lucide="drumstick" class="w-16 h-16 text-amber-700"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Chicken Wrap</h3>
+                                <span class="text-primary font-bold text-lg">$10.49</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Grilled chicken, mixed greens, and chipotle mayo in a spinach wrap</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dinner Page -->
+        <div id="dinnerPage" class="page-content hidden">
+            <div class="max-w-6xl mx-auto px-4 py-8">
+                <button class="back-btn flex items-center gap-2 text-primary hover:text-secondary transition-colors mb-6">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    Back to Menu
+                </button>
+                
+                <div class="text-center mb-12">
+                    <h2 class="text-5xl font-bold text-primary mb-4">Dinner</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 italic">End your day with culinary excellence</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Menu Item 1 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-red-300 to-red-500 flex items-center justify-center">
+                            <i data-lucide="beef" class="w-16 h-16 text-red-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Ribeye Steak</h3>
+                                <span class="text-primary font-bold text-lg">$28.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">12oz premium ribeye with garlic mashed potatoes and asparagus</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 2 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center">
+                            <i data-lucide="wheat" class="w-16 h-16 text-yellow-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Pasta Carbonara</h3>
+                                <span class="text-primary font-bold text-lg">$15.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Classic Italian pasta with pancetta, eggs, and pecorino romano</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 3 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-pink-300 to-pink-500 flex items-center justify-center">
+                            <i data-lucide="fish" class="w-16 h-16 text-pink-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Seafood Paella</h3>
+                                <span class="text-primary font-bold text-lg">$24.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Spanish rice dish with shrimp, mussels, and saffron</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 4 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-purple-300 to-purple-500 flex items-center justify-center">
+                            <i data-lucide="drumstick" class="w-16 h-16 text-purple-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Roasted Duck</h3>
+                                <span class="text-primary font-bold text-lg">$26.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Crispy skin duck breast with orange glaze and wild rice</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 5 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-green-300 to-green-500 flex items-center justify-center">
+                            <i data-lucide="vegan" class="w-16 h-16 text-green-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Vegetable Curry</h3>
+                                <span class="text-primary font-bold text-lg">$14.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Mixed vegetables in aromatic curry sauce with basmati rice</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 6 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-orange-300 to-orange-500 flex items-center justify-center">
+                            <i data-lucide="flame" class="w-16 h-16 text-orange-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">BBQ Ribs</h3>
+                                <span class="text-primary font-bold text-lg">$22.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Fall-off-the-bone ribs with house BBQ sauce and coleslaw</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drinks Page -->
+        <div id="drinksPage" class="page-content hidden">
+            <div class="max-w-6xl mx-auto px-4 py-8">
+                <button class="back-btn flex items-center gap-2 text-primary hover:text-secondary transition-colors mb-6">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    Back to Menu
+                </button>
+                
+                <div class="text-center mb-12">
+                    <h2 class="text-5xl font-bold text-primary mb-4">Drinks</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 italic">Quench your thirst with our beverages</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Menu Item 1 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-amber-200 to-amber-400 flex items-center justify-center">
+                            <i data-lucide="coffee" class="w-16 h-16 text-amber-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Espresso</h3>
+                                <span class="text-primary font-bold text-lg">$3.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Rich and bold Italian espresso shot</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 2 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-brown-200 to-brown-400 flex items-center justify-center">
+                            <i data-lucide="milk" class="w-16 h-16 text-brown-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Cappuccino</h3>
+                                <span class="text-primary font-bold text-lg">$4.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Espresso with steamed milk and velvety foam</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 3 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-orange-200 to-orange-400 flex items-center justify-center">
+                            <i data-lucide="citrus" class="w-16 h-16 text-orange-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Fresh Orange Juice</h3>
+                                <span class="text-primary font-bold text-lg">$5.49</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Freshly squeezed orange juice, no added sugar</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 4 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-pink-200 to-pink-400 flex items-center justify-center">
+                            <i data-lucide="grape" class="w-16 h-16 text-pink-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Berry Smoothie</h3>
+                                <span class="text-primary font-bold text-lg">$6.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Blended strawberries, blueberries, and banana with yogurt</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 5 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-green-200 to-green-400 flex items-center justify-center">
+                            <i data-lucide="leaf" class="w-16 h-16 text-green-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Green Tea</h3>
+                                <span class="text-primary font-bold text-lg">$3.49</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Premium Japanese green tea, hot or iced</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Item 6 -->
+                    <div class="menu-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                        <div class="h-48 bg-gradient-to-br from-blue-200 to-blue-400 flex items-center justify-center">
+                            <i data-lucide="glass-water" class="w-16 h-16 text-blue-800"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">Sparkling Water</h3>
+                                <span class="text-primary font-bold text-lg">$2.99</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Refreshing carbonated water with a lemon twist</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Action Buttons -->
+    <div class="fixed-buttons fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 p-4 z-40">
+        <div class="max-w-6xl mx-auto flex gap-3">
+            <a href="tel:+15551234567" class="flex-1 bg-primary hover:bg-red-700 text-white font-semibold py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <i data-lucide="phone" class="w-5 h-5"></i>
+                Call to Order
+            </a>
+            <a href="https://wa.me/15551234567" target="_blank" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                WhatsApp Order
+            </a>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
