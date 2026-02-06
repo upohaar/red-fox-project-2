@@ -1,67 +1,13 @@
-* {
-    font-family: 'Lora', serif;
-}
-
-h1, h2, h3, h4 {
-    font-family: 'Playfair Display', serif;
-}
-
+* { font-family: 'Lora', serif; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 .hero-pattern {
-    background-image: 
-        radial-gradient(circle at 20% 50%, rgba(230, 57, 70, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(244, 162, 97, 0.1) 0%, transparent 50%);
+    background-image: radial-gradient(circle at 20% 50%, rgba(230, 57, 70, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 80%, rgba(244, 162, 97, 0.1) 0%, transparent 50%);
 }
-
-.dark .hero-pattern {
-    background-image: 
-        radial-gradient(circle at 20% 50%, rgba(230, 57, 70, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(244, 162, 97, 0.15) 0%, transparent 50%);
-}
-
-.menu-card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.menu-card:hover {
-    transform: translateY(-4px);
-}
-
-.category-link {
-    position: relative;
-    overflow: hidden;
-}
-
-.category-link::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, #E63946, #F4A261);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-}
-
-.category-link:hover::before {
-    transform: translateX(0);
-}
-
-.page-enter {
-    animation: pageEnter 0.4s ease-out;
-}
-
-@keyframes pageEnter {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+.menu-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.menu-card:hover { transform: translateY(-4px); }
+.page-enter { animation: pageEnter 0.4s ease-out; }
+@keyframes pageEnter { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .stagger-1 { animation-delay: 0.1s; }
 .stagger-2 { animation-delay: 0.2s; }
 .stagger-3 { animation-delay: 0.3s; }

@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savory Haven - Digital Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E63946',
+                        secondary: '#F4A261',
+                        dark: '#1A1A1A',
+                        light: '#F8F9FA'
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
@@ -17,7 +32,83 @@
     </button>
 
     <div id="app" class="min-h-screen pb-32">
+        <div id="homePage" class="page-content">
+            <section class="hero-pattern min-h-[60vh] flex items-center justify-center px-4 py-16 text-center">
+                <div class="page-enter">
+                    <h1 class="text-5xl md:text-7xl font-bold text-primary mb-4">Savory Haven</h1>
+                    <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-light italic">Where Every Bite Tells a Story</p>
+                </div>
+            </section>
+
+            <section class="max-w-6xl mx-auto px-4 py-16">
+                <h2 class="text-4xl font-bold text-center mb-12">Our Menu</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <a href="#" data-page="breakfast" class="category-link block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg page-enter stagger-1">
+                        <div class="h-48 bg-orange-500 flex items-center justify-center"><i data-lucide="sunrise" class="w-20 h-20 text-white"></i></div>
+                        <div class="p-6"><h3 class="text-2xl font-semibold mb-2">Breakfast</h3><p class="text-gray-600">Start your day right</p></div>
+                    </a>
+                    <a href="#" data-page="lunch" class="category-link block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg page-enter stagger-2">
+                        <div class="h-48 bg-green-500 flex items-center justify-center"><i data-lucide="salad" class="w-20 h-20 text-white"></i></div>
+                        <div class="p-6"><h3 class="text-2xl font-semibold mb-2">Lunch</h3><p class="text-gray-600">Midday delights</p></div>
+                    </a>
+                    <a href="#" data-page="dinner" class="category-link block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg page-enter stagger-3">
+                        <div class="h-48 bg-purple-500 flex items-center justify-center"><i data-lucide="utensils" class="w-20 h-20 text-white"></i></div>
+                        <div class="p-6"><h3 class="text-2xl font-semibold mb-2">Dinner</h3><p class="text-gray-600">Evening favorites</p></div>
+                    </a>
+                    <a href="#" data-page="drinks" class="category-link block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg page-enter stagger-4">
+                        <div class="h-48 bg-blue-500 flex items-center justify-center"><i data-lucide="coffee" class="w-20 h-20 text-white"></i></div>
+                        <div class="p-6"><h3 class="text-2xl font-semibold mb-2">Drinks</h3><p class="text-gray-600">Refreshing beverages</p></div>
+                    </a>
+                </div>
+            </section>
+
+            <footer class="bg-white dark:bg-gray-800 py-12 px-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="phone" class="text-primary"></i> Contact Us</h3>
+                        <p>Phone: +1 (555) 123-4567</p>
+                        <p>Email: hello@savoryhaven.com</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4 flex items-center gap-2"><i data-lucide="map-pin" class="text-primary"></i> Location</h3>
+                        <p>123 Culinary Street, Food District</p>
+                    </div>
+                </div>
+                <div class="text-center mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                    <p>&copy; 2026 Savory Haven. All rights reserved.</p>
+                    <p class="text-xs text-gray-400 mt-2 italic">Design & Developed by <span class="text-primary font-bold">আপনার নাম</span></p>
+                </div>
+            </footer>
         </div>
+
+        <div id="breakfastPage" class="page-content hidden px-4 py-8 max-w-6xl mx-auto">
+            <button class="back-btn flex items-center gap-2 text-primary mb-6"><i data-lucide="arrow-left"></i> Back to Menu</button>
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold text-primary mb-4">Breakfast</h2>
+                <p class="italic">Rise and shine with our morning favorites</p>
+            </div>
+            <div id="breakfastList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+        </div>
+
+        <div id="lunchPage" class="page-content hidden px-4 py-8 max-w-6xl mx-auto">
+            <button class="back-btn flex items-center gap-2 text-primary mb-6"><i data-lucide="arrow-left"></i> Back to Menu</button>
+            <h2 class="text-5xl font-bold text-center text-primary mb-12">Lunch</h2>
+            <div id="lunchList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+
+        <div id="dinnerPage" class="page-content hidden px-4 py-8 max-w-6xl mx-auto">
+            <button class="back-btn flex items-center gap-2 text-primary mb-6"><i data-lucide="arrow-left"></i> Back to Menu</button>
+            <h2 class="text-5xl font-bold text-center text-primary mb-12">Dinner</h2>
+            <div id="dinnerList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+
+        <div id="drinksPage" class="page-content hidden px-4 py-8 max-w-6xl mx-auto">
+            <button class="back-btn flex items-center gap-2 text-primary mb-6"><i data-lucide="arrow-left"></i> Back to Menu</button>
+            <h2 class="text-5xl font-bold text-center text-primary mb-12">Drinks</h2>
+            <div id="drinksList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
